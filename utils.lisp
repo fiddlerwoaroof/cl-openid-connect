@@ -1,6 +1,3 @@
-(defpackage whitespace.utils
-  (:use #:cl #:alexandria #:iterate))
-
 (in-package whitespace.utils)
 
 (defun ensure-mapping (list)

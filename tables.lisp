@@ -1,6 +1,4 @@
 (in-package :cl-user)
-(defpackage :whitespace.tables
-  (:use #:cl #:alexandria #:postmodern #:annot.class #:iterate #:whitespace.utils))
 (in-package :whitespace.tables)
 (cl-annot.syntax:enable-annot-syntax)
 

@@ -2,7 +2,6 @@
 (ql:quickload :clack-middleware-postmodern)
 
 (ql:quickload :cl-markup)
-(ql:quickload :cl-oid-connect)
 (ql:quickload :colors)
 (ql:quickload :lquery)
 (ql:quickload :plump)
@@ -16,6 +15,8 @@
 (ql:quickload :jonathan)
 (ql:quickload :cl-actors)
 (ql:quickload :simple-tasks)
+(ql:quickload :cl-oid-connect)
+(ql:quickload :fwoar.lisputils)
 
 (declaim (optimize (speed 0) (safety 3) (debug 2)))
 
@@ -24,10 +25,8 @@
 (push (cons "text" "rss+xml") drakma:*text-content-types*)
 
 ;(load "utils.lisp")
+(load "package.lisp")
 (load "rss.lisp")
-
-(defpackage :whitespace
-  (:use #:cl #:anaphora #:whitespace.utils #:whitespace.feeds.rss #:whitespace.tables))
 
 (in-package plump-dom)
 
