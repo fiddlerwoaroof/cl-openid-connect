@@ -166,11 +166,14 @@
 
 ;;; TODO: add needs to return the new content, so that angular can append it
 
+(defparameter *userasdfs* nil)
 (cl-oid-connect:def-route ("/feeds/json" (params) :app *app*)
   (ningle.context:with-context-variables (session)
     (let* ((user-info (gethash :app-user session))
            (*feeds* (if user-info (deserialize user-info) *feeds*)))
-      `(200 (:content-type "application/json" :cache-control "private, max-age=300") ,(jsonapi-encoder t *feeds*)))))
+      (setf *userasdfs* user-info)
+      `(200 (:content-type "application/json" :cache-control "private, max-age=300")
+        ,(jsonapi-encoder t *feeds*)))))
 
 (cl-oid-connect:def-route ("/feeds/:feeds/html" (params) :app *app*)
   (ningle.context:with-context-variables (session)
@@ -188,9 +191,12 @@
 (cl-oid-connect:def-route ("/demo" (params) :app *app*)
   (base-template-f t))
 
+#|(cl-oid-connect:require-login
+    ))|#
+
 (cl-oid-connect:def-route ("/" (params) :app *app*)
   (ningle:with-context-variables (session)
-    (cl-oid-connect:require-login
+    (cl-oid-connect.utils:require-login
       (cl-oid-connect:redirect-if-necessary session
         (let* ((user-info (gethash :app-user session))
                (*feeds* (deserialize user-info)))
@@ -406,4 +412,3 @@
     (start)))
 
 
-; vim: foldmethod=marker foldmarker=(,) foldminlines=3 :

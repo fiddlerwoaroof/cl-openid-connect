@@ -145,7 +145,7 @@
                   (collect item))))
 
 (defserializer (rss-item)
-  title link (description :bind-from description) guid pub-date source)
+  title link description guid pub-date source)
 
 (defmethod jonathan:%to-json ((obj rss-feed))
   (jonathan:%to-json (serialize obj #'alexandria:alist-hash-table #'%json-pair-transform)))
